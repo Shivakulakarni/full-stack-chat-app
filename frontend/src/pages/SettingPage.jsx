@@ -12,7 +12,7 @@ const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4 md:p-6 overflow-hidden bg-gradient-to-br from-base-300 via-base-200 to-base-300 pt-20">
+    <div className="min-h-screen relative flex flex-col items-center justify-start p-4 md:p-6 overflow-y-auto bg-gradient-to-br from-base-300 via-base-200 to-base-300 pt-28 pb-10">
       {/* Dynamic Background Gradients */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[80px] float-slow" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] h-[350px] rounded-full bg-secondary/10 blur-[80px] float-medium" />
