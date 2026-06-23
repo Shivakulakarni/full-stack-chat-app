@@ -33,15 +33,14 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.join(__dirname, "../../frontend/dist");
-  console.log("Serving static from:", frontendPath);
-  app.use(express.static(frontendPath));
+const frontendPath = path.join(__dirname, "../../frontend/dist");
+console.log("Frontend path:", frontendPath);
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
-  });
-}
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
