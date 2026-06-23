@@ -6,47 +6,43 @@ const Navbar = () => {
   const { logout, authUser } = useAuthStore();
 
   return (
-    <header
-      className="bg-base-100/80 backdrop-blur-xl border-b border-base-300/50 fixed w-full top-0 z-50"
-    >
-      <div className="container mx-auto px-4 h-16">
-        <div className="flex items-center justify-between h-full">
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-all duration-200 group">
-            <div className="size-9 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-              <MessageSquare className="w-5 h-5 text-primary" />
-            </div>
-            <h1 className="text-lg font-bold tracking-tight hidden sm:block">Chatty</h1>
+    <header className="fixed top-0 inset-x-0 z-50 glass-strong border-b border-base-300/40">
+      <div className="mx-auto max-w-screen-xl px-4 h-14 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
+          <div className="flex items-center justify-center size-8 rounded-lg bg-primary text-primary-content shadow-md shadow-primary/20">
+            <MessageSquare className="size-4" />
+          </div>
+          <span className="text-base font-bold tracking-tight">Chatty</span>
+        </Link>
+
+        <div className="flex items-center gap-1">
+          <Link
+            to="/settings"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-base-content/60 hover:text-base-content hover:bg-base-200/60 transition-all duration-150"
+          >
+            <Settings className="size-4" />
+            <span className="hidden sm:inline">Settings</span>
           </Link>
 
-          <div className="flex items-center gap-1">
-            <Link
-              to="/settings"
-              className="btn btn-ghost btn-sm gap-2 rounded-xl hover:bg-base-200 transition-all duration-200"
-            >
-              <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline text-sm">Settings</span>
-            </Link>
+          {authUser && (
+            <>
+              <Link
+                to="/profile"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-base-content/60 hover:text-base-content hover:bg-base-200/60 transition-all duration-150"
+              >
+                <User className="size-4" />
+                <span className="hidden sm:inline">Profile</span>
+              </Link>
 
-            {authUser && (
-              <>
-                <Link
-                  to="/profile"
-                  className="btn btn-ghost btn-sm gap-2 rounded-xl hover:bg-base-200 transition-all duration-200"
-                >
-                  <User className="size-4" />
-                  <span className="hidden sm:inline text-sm">Profile</span>
-                </Link>
-
-                <button
-                  className="btn btn-ghost btn-sm gap-2 rounded-xl hover:bg-error/10 hover:text-error transition-all duration-200"
-                  onClick={logout}
-                >
-                  <LogOut className="size-4" />
-                  <span className="hidden sm:inline text-sm">Logout</span>
-                </button>
-              </>
-            )}
-          </div>
+              <button
+                onClick={logout}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-base-content/60 hover:text-red-500 hover:bg-red-500/10 transition-all duration-150"
+              >
+                <LogOut className="size-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

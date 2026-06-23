@@ -4,27 +4,26 @@ const SidebarSkeleton = () => {
   const skeletonContacts = Array(8).fill(null);
 
   return (
-    <aside
-      className="h-full w-20 lg:w-72 border-r border-base-300/50 
-    flex flex-col transition-all duration-300 bg-base-100/50"
-    >
-      <div className="border-b border-base-300/50 w-full p-4 space-y-3">
-        <div className="flex items-center gap-2">
-          <Users className="w-5 h-5 text-base-content/30" />
-          <span className="font-semibold hidden lg:block text-base-content/30">Contacts</span>
+    <aside className="h-full w-[68px] lg:w-72 border-r border-base-300/40 flex flex-col">
+      <div className="p-3 lg:p-4 space-y-3 border-b border-base-300/40">
+        <div className="flex items-center gap-2 px-1">
+          <Users className="size-4 text-base-content/20" />
+          <div className="hidden lg:block skeleton h-4 w-16 rounded-md" />
         </div>
-        <div className="hidden lg:block skeleton h-8 w-full rounded-xl" />
+        <div className="hidden lg:block skeleton h-8 w-full rounded-lg" />
+        <div className="hidden lg:flex items-center gap-2 px-1">
+          <div className="skeleton size-3 rounded" />
+          <div className="skeleton h-3 w-20 rounded-md" />
+        </div>
       </div>
 
-      <div className="overflow-y-auto w-full py-3 px-2">
+      <div className="flex-1 py-2 px-1.5 lg:px-2 space-y-1">
         {skeletonContacts.map((_, idx) => (
-          <div key={idx} className="w-full p-3 flex items-center gap-3 rounded-xl">
-            <div className="relative mx-auto lg:mx-0 shrink-0">
-              <div className="skeleton size-12 rounded-full" />
-            </div>
-            <div className="hidden lg:block text-left min-w-0 flex-1">
-              <div className="skeleton h-4 w-28 mb-2 rounded-lg" />
-              <div className="skeleton h-3 w-14 rounded-lg" />
+          <div key={idx} className="w-full flex items-center gap-3 px-2.5 py-2.5 rounded-xl">
+            <div className="skeleton size-11 rounded-full shrink-0 mx-auto lg:mx-0" />
+            <div className="hidden lg:block flex-1 space-y-1.5">
+              <div className="skeleton h-3.5 w-24 rounded-md" />
+              <div className="skeleton h-3 w-12 rounded-md" />
             </div>
           </div>
         ))}

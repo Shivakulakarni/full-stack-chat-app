@@ -17,9 +17,7 @@ const MessageInput = () => {
     }
 
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
+    reader.onloadend = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
   };
 
@@ -33,11 +31,7 @@ const MessageInput = () => {
     if (!text.trim() && !imagePreview) return;
 
     try {
-      await sendMessage({
-        text: text.trim(),
-        image: imagePreview,
-      });
-
+      await sendMessage({ text: text.trim(), image: imagePreview });
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -47,19 +41,18 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="p-4 border-t border-base-300/50 bg-base-100/80 backdrop-blur-sm">
+    <div className="px-4 py-3 border-t border-base-300/40">
       {imagePreview && (
-        <div className="mb-3 flex items-center gap-2 animate-slide-up">
-          <div className="relative">
+        <div className="mb-2.5 slide-in-up">
+          <div className="relative inline-block">
             <img
               src={imagePreview}
               alt="Preview"
-              className="w-20 h-20 object-cover rounded-xl border border-base-300"
+              className="h-20 w-20 object-cover rounded-xl border border-base-300/60"
             />
             <button
               onClick={removeImage}
-              className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-error text-error-content
-              flex items-center justify-center hover:scale-110 transition-transform"
+              className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-base-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors"
               type="button"
             >
               <X className="size-3" />
@@ -68,14 +61,20 @@ const MessageInput = () => {
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="flex items-center gap-3">
-        <div className="flex-1 flex gap-2">
-          <input
-            type="text"
-            className="w-full input input-bordered rounded-2xl input-sm sm:input-md focus:input-primary transition-colors"
+      <form onSubmit={handleSendMessage} className="flex items-end gap-2">
+        <div className="flex-1 relative">
+          <textarea
+            className="w-full resize-none rounded-xl border border-base-300/60 bg-base-200/30 px-3.5 py-2.5 text-sm placeholder:text-base-content/30 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 transition-all max-h-32"
             placeholder="Type a message..."
+            rows={1}
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage(e);
+              }
+            }}
           />
           <input
             type="file"
@@ -87,23 +86,27 @@ const MessageInput = () => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-ghost btn-circle transition-colors
-              ${imagePreview ? "text-primary" : "text-base-content/40 hover:text-base-content/70"}`}
+            className={`absolute right-2 bottom-2 p-1 rounded-lg transition-colors
+              ${imagePreview ? "text-emerald-500" : "text-base-content/20 hover:text-base-content/50"}`}
             onClick={() => fileInputRef.current?.click()}
           >
-            <Image size={20} />
+            <Image size={18} />
           </button>
         </div>
+
         <button
           type="submit"
-          className={`btn btn-circle btn-sm transition-all duration-200
+          className={`
+            size-9 rounded-xl inline-flex items-center justify-center shrink-0
+            transition-all duration-200
             ${text.trim() || imagePreview
-              ? "btn-primary shadow-lg shadow-primary/25 hover:scale-105"
-              : "btn-ghost text-base-content/30"
-            }`}
+              ? "bg-primary text-primary-content shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-105 active:scale-95"
+              : "bg-base-200 text-base-content/20"
+            }
+          `}
           disabled={!text.trim() && !imagePreview}
         >
-          <Send size={18} />
+          <Send size={16} />
         </button>
       </form>
     </div>
