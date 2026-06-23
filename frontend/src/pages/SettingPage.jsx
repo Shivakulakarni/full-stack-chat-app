@@ -12,81 +12,98 @@ const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
 
   return (
-    <div className="min-h-screen bg-base-200/50 pt-20">
-      <div className="max-w-3xl mx-auto p-4 py-10 animate-in">
-        <div className="flex items-center gap-3 mb-8">
-          <Link to="/" className="size-8 inline-flex items-center justify-center rounded-lg hover:bg-base-200/60 transition-colors">
-            <ArrowLeft className="size-4" />
-          </Link>
-          <div>
-            <h1 className="text-base font-semibold">Settings</h1>
-            <p className="text-xs text-base-content/40">Customize your experience</p>
+    <div className="min-h-screen relative flex items-center justify-center p-4 md:p-6 overflow-hidden bg-gradient-to-br from-base-300 via-base-200 to-base-300 pt-20">
+      {/* Dynamic Background Gradients */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[80px] float-slow" />
+      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] h-[350px] rounded-full bg-secondary/10 blur-[80px] float-medium" />
+
+      <div className="relative z-10 w-full max-w-3xl glass-premium rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/5 animate-in space-y-6">
+        <div className="flex items-center gap-3 border-b border-white/10 pb-4 justify-between">
+          <div className="flex items-center gap-3">
+            <Link to="/" className="size-8 inline-flex items-center justify-center rounded-xl hover:bg-base-100/50 transition-colors text-base-content/70">
+              <ArrowLeft className="size-4" />
+            </Link>
+            <div>
+              <h2 className="text-lg font-bold tracking-tight">Interface Theme</h2>
+              <p className="text-xs text-base-content/60">Select a theme to customize your chat workspace color palette</p>
+            </div>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-base-300/40 bg-base-100 shadow-sm p-6">
-            <div className="mb-5">
-              <h3 className="text-sm font-semibold">Appearance</h3>
-              <p className="text-xs text-base-content/40 mt-0.5">Choose your theme</p>
-            </div>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2.5 max-h-[160px] overflow-y-auto pr-1">
+          {THEMES.map((t) => (
+            <button
+              key={t}
+              className={`
+                group flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-200 hover:scale-102
+                ${theme === t ? "bg-primary/10 ring-1 ring-primary/30" : "hover:bg-base-100/50"}
+              `}
+              onClick={() => setTheme(t)}
+            >
+              <div className="relative h-8 w-full rounded-lg overflow-hidden border border-base-300/30" data-theme={t}>
+                <div className="absolute inset-0 grid grid-cols-4 gap-px p-1 bg-base-100">
+                  <div className="rounded-sm bg-primary"></div>
+                  <div className="rounded-sm bg-secondary"></div>
+                  <div className="rounded-sm bg-accent"></div>
+                  <div className="rounded-sm bg-neutral"></div>
+                </div>
+              </div>
+              <span className="text-[10px] font-bold truncate w-full text-center text-base-content/75 group-hover:text-base-content">
+                {t.charAt(0).toUpperCase() + t.slice(1)}
+              </span>
+            </button>
+          ))}
+        </div>
 
-            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-              {THEMES.map((t) => (
-                <button
-                  key={t}
-                  className={`
-                    group flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-150
-                    ${theme === t
-                      ? "bg-primary/10 ring-2 ring-primary/30 scale-105"
-                      : "hover:bg-base-200/60 hover:scale-105"
-                    }
-                  `}
-                  onClick={() => setTheme(t)}
-                >
-                  <div className="relative h-7 w-full rounded-lg overflow-hidden" data-theme={t}>
-                    <div className="absolute inset-0 grid grid-cols-4 gap-px p-0.5">
-                      <div className="rounded bg-primary" />
-                      <div className="rounded bg-secondary" />
-                      <div className="rounded bg-accent" />
-                      <div className="rounded bg-neutral" />
+        {/* Preview Section */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-bold tracking-tight text-base-content/85">Visual Preview</h3>
+          <div className="rounded-2xl border border-white/10 overflow-hidden bg-base-100/20 shadow-inner">
+            <div className="p-4 sm:p-6 bg-base-100/10 backdrop-blur-sm">
+              <div className="max-w-md mx-auto">
+                {/* Mock Chat UI */}
+                <div className="bg-base-100/80 border border-base-300/40 rounded-2xl shadow-lg overflow-hidden">
+                  {/* Chat Header */}
+                  <div className="px-4 py-3 border-b border-base-300/30 bg-base-100/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-primary-content font-bold text-sm shadow-sm">
+                        JD
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-xs">Jane Doe</h3>
+                        <p className="text-[10px] text-emerald-500 font-semibold flex items-center gap-1">
+                          <span className="size-1 bg-emerald-500 rounded-full animate-pulse" />
+                          Online
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-medium truncate w-full text-center capitalize">
-                    {t}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
 
-          <div className="rounded-2xl border border-base-300/40 bg-base-100 shadow-sm p-6">
-            <h3 className="text-sm font-semibold mb-4">Preview</h3>
-            <div className="rounded-xl border border-base-300/40 overflow-hidden">
-              <div className="bg-base-200/30 p-3">
-                <div className="max-w-md mx-auto bg-base-100 rounded-xl shadow-sm overflow-hidden">
-                  <div className="px-3.5 py-2.5 border-b border-base-300/40 flex items-center gap-2.5">
-                    <div className="size-7 rounded-full bg-primary flex items-center justify-center text-primary-content text-[10px] font-bold">
-                      J
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold">John Doe</p>
-                      <p className="text-[10px] text-emerald-500">Online</p>
-                    </div>
-                  </div>
-
-                  <div className="p-3 space-y-2 min-h-[160px] max-h-[160px] overflow-y-auto">
-                    {PREVIEW_MESSAGES.map((msg) => (
-                      <div key={msg.id} className={`flex ${msg.isSent ? "justify-end" : "justify-start"}`}>
+                  {/* Chat Messages */}
+                  <div className="p-4 space-y-4 min-h-[160px] max-h-[160px] overflow-y-auto bg-base-100/25">
+                    {PREVIEW_MESSAGES.map((message) => (
+                      <div
+                        key={message.id}
+                        className={`flex items-end gap-2.5 ${message.isSent ? "justify-end" : "justify-start"}`}
+                      >
+                        {!message.isSent && (
+                          <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-[10px] text-primary-content font-bold">
+                            JD
+                          </div>
+                        )}
                         <div
-                          className={`max-w-[80%] px-3 py-2 rounded-2xl text-xs ${
-                            msg.isSent
-                              ? "bg-primary text-primary-content rounded-br-md"
-                              : "bg-base-200 rounded-bl-md"
-                          }`}
+                          className={`
+                            max-w-[75%] rounded-2xl px-3.5 py-2 text-xs shadow-sm
+                            ${message.isSent ? "bg-gradient-to-tr from-primary to-purple-600 text-primary-content rounded-br-none" : "bg-base-200/70 border border-base-300/40 text-base-content rounded-bl-none"}
+                          `}
                         >
-                          <p>{msg.content}</p>
-                          <p className={`text-[9px] mt-1 ${msg.isSent ? "text-primary-content/60" : "text-base-content/40"}`}>
+                          <p className="leading-relaxed">{message.content}</p>
+                          <p
+                            className={`
+                              text-[8px] mt-1 text-right font-medium
+                              ${message.isSent ? "text-primary-content/60" : "text-base-content/40"}
+                            `}
+                          >
                             12:00 PM
                           </p>
                         </div>
@@ -94,14 +111,19 @@ const SettingsPage = () => {
                     ))}
                   </div>
 
-                  <div className="px-3.5 py-2.5 border-t border-base-300/40">
+                  {/* Chat Input */}
+                  <div className="p-3 border-t border-base-300/30 bg-base-100/50">
                     <div className="flex gap-2">
-                      <div className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-base-300/40 bg-base-200/30 text-base-content/30">
-                        Type a message...
-                      </div>
-                      <div className="size-7 rounded-lg bg-primary flex items-center justify-center">
-                        <Send size={12} className="text-primary-content" />
-                      </div>
+                      <input
+                        type="text"
+                        className="w-full bg-base-100/30 border border-base-300/50 rounded-xl px-3 py-1.5 text-xs focus:outline-none"
+                        placeholder="Type a message..."
+                        value="This is a preview"
+                        readOnly
+                      />
+                      <button className="size-8 rounded-xl bg-gradient-to-tr from-primary to-purple-600 text-primary-content flex items-center justify-center shrink-0">
+                        <Send size={12} />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -113,4 +135,5 @@ const SettingsPage = () => {
     </div>
   );
 };
+
 export default SettingsPage;

@@ -21,102 +21,120 @@ const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm() === true) signup(formData);
+
+    const success = validateForm();
+
+    if (success === true) signup(formData);
   };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
-      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-[340px] animate-in">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center size-12 rounded-2xl bg-primary text-primary-content shadow-lg shadow-primary/20 mb-4">
-              <MessageSquare className="size-6" />
+    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-base-300 via-base-200 to-base-300">
+      {/* Dynamic Background Gradients */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[80px] float-slow" />
+      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] h-[350px] rounded-full bg-secondary/10 blur-[80px] float-medium" />
+
+      {/* Main glass card */}
+      <div className="relative z-10 w-full max-w-md glass-premium rounded-3xl p-8 sm:p-10 shadow-2xl border border-white/5 animate-in">
+        {/* LOGO */}
+        <div className="text-center mb-8">
+          <div className="flex flex-col items-center gap-3">
+            <div className="size-12 rounded-2xl bg-gradient-to-tr from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+              <MessageSquare className="size-6 text-primary-content" />
             </div>
-            <h1 className="text-2xl font-bold">Create account</h1>
-            <p className="text-sm text-base-content/40 mt-1.5">
-              Get started for free
+            <h1 className="text-2xl font-extrabold tracking-tight mt-2 text-gradient-premium">Create Account</h1>
+            <p className="text-xs text-base-content/60">
+              Join Chatty and connect with friends in real-time
             </p>
           </div>
+        </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium">Full Name</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-base-content/30" />
-                <input
-                  type="text"
-                  className="w-full pl-10 pr-3 py-2.5 text-sm rounded-xl border border-base-300/60 bg-base-200/30 placeholder:text-base-content/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="form-control">
+            <label className="label py-1">
+              <span className="label-text text-xs font-semibold text-base-content/70">Full Name</span>
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                <User className="size-4.5 text-base-content/40" />
               </div>
+              <input
+                type="text"
+                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-base-300 bg-base-100/30 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                placeholder="John Doe"
+                value={formData.fullName}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+              />
             </div>
+          </div>
 
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-base-content/30" />
-                <input
-                  type="email"
-                  className="w-full pl-10 pr-3 py-2.5 text-sm rounded-xl border border-base-300/60 bg-base-200/30 placeholder:text-base-content/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
+          <div className="form-control">
+            <label className="label py-1">
+              <span className="label-text text-xs font-semibold text-base-content/70">Email Address</span>
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                <Mail className="size-4.5 text-base-content/40" />
               </div>
+              <input
+                type="email"
+                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-base-300 bg-base-100/30 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
             </div>
+          </div>
 
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-base-content/30" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-base-300/60 bg-base-200/30 placeholder:text-base-content/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/30 hover:text-base-content/60 transition-colors"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                </button>
+          <div className="form-control">
+            <label className="label py-1">
+              <span className="label-text text-xs font-semibold text-base-content/70">Password</span>
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                <Lock className="size-4.5 text-base-content/40" />
               </div>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="w-full pl-11 pr-11 py-2.5 rounded-xl border border-base-300 bg-base-100/30 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-base-content/40 hover:text-base-content transition-colors"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff className="size-4.5" /> : <Eye className="size-4.5" />}
+              </button>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              className="w-full py-2.5 mt-2 rounded-xl bg-primary text-primary-content text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none"
-              disabled={isSigningUp}
-            >
-              {isSigningUp ? (
-                <span className="inline-flex items-center gap-2">
-                  <Loader2 className="size-4 animate-spin" />
-                  Creating account...
-                </span>
-              ) : (
-                "Create account"
-              )}
-            </button>
-          </form>
+          <button
+            type="submit"
+            className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-primary to-purple-600 hover:from-primary/95 hover:to-purple-600/95 text-primary-content text-sm font-semibold shadow-md shadow-primary/10 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
+            disabled={isSigningUp}
+          >
+            {isSigningUp ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              "Get Started"
+            )}
+          </button>
+        </form>
 
-          <p className="text-center text-sm text-base-content/40 mt-6">
+        <div className="text-center mt-6">
+          <p className="text-xs text-base-content/60">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary font-medium hover:underline">
+            <Link to="/login" className="link link-primary font-semibold hover:underline">
               Sign in
             </Link>
           </p>
         </div>
       </div>
-
-      <AuthImagePattern
-        title="Join our community"
-        subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
-      />
     </div>
   );
 };

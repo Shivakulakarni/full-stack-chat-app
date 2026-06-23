@@ -41,18 +41,19 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="px-4 py-3 border-t border-base-300/40">
+    <div className="p-4 w-full border-t border-base-300/30 bg-base-100/25 backdrop-blur-sm">
       {imagePreview && (
-        <div className="mb-2.5 slide-in-up">
-          <div className="relative inline-block">
+        <div className="mb-3 flex items-center gap-2 animate-in">
+          <div className="relative">
             <img
               src={imagePreview}
               alt="Preview"
-              className="h-20 w-20 object-cover rounded-xl border border-base-300/60"
+              className="size-16 object-cover rounded-xl border border-base-300 shadow-md"
             />
             <button
               onClick={removeImage}
-              className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-base-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors"
+              className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-base-300
+              flex items-center justify-center border border-base-100 hover:bg-red-500 hover:text-white transition-colors"
               type="button"
             >
               <X className="size-3" />
@@ -61,20 +62,14 @@ const MessageInput = () => {
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="flex items-end gap-2">
-        <div className="flex-1 relative">
-          <textarea
-            className="w-full resize-none rounded-xl border border-base-300/60 bg-base-200/30 px-3.5 py-2.5 text-sm placeholder:text-base-content/30 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 transition-all max-h-32"
+      <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+        <div className="flex-1 flex gap-2">
+          <input
+            type="text"
+            className="w-full bg-base-100/40 border border-base-300/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
             placeholder="Type a message..."
-            rows={1}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSendMessage(e);
-              }
-            }}
           />
           <input
             type="file"
@@ -86,8 +81,8 @@ const MessageInput = () => {
 
           <button
             type="button"
-            className={`absolute right-2 bottom-2 p-1 rounded-lg transition-colors
-              ${imagePreview ? "text-emerald-500" : "text-base-content/20 hover:text-base-content/50"}`}
+            className={`flex btn btn-circle btn-md border border-base-300/50 bg-base-100/40 hover:bg-base-200/50 hover:scale-[1.02] active:scale-[0.98] transition-all
+                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={18} />

@@ -7,10 +7,16 @@ const HomePage = () => {
   const { selectedUser } = useChatStore();
 
   return (
-    <div className="h-screen pt-14 bg-base-200/50">
-      <div className="h-[calc(100vh-3.5rem)] max-w-screen-xl mx-auto px-2 sm:px-4 py-2">
-        <div className="h-full rounded-2xl border border-base-300/40 bg-base-100 shadow-sm overflow-hidden flex">
+    <div className="min-h-screen relative flex items-center justify-center p-4 md:p-6 overflow-hidden bg-gradient-to-br from-base-300 via-base-200 to-base-300 pt-20">
+      {/* Interactive Background Elements */}
+      <div className="absolute top-1/3 left-1/4 -translate-x-1/2 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[90px] float-slow" />
+      <div className="absolute bottom-1/3 right-1/4 translate-x-1/2 w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[90px] float-medium" />
+
+      {/* Main Chat Container */}
+      <div className="relative z-10 w-full max-w-6xl h-[calc(100vh-6.5rem)] glass-premium rounded-3xl overflow-hidden shadow-2xl border border-white/5 animate-in">
+        <div className="flex h-full">
           <Sidebar />
+
           {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
         </div>
       </div>
