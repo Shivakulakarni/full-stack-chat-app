@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.NODE_ENV === "production"
-      ? [process.env.RENDER_EXTERNAL_URL]
+      ? [process.env.RENDER_EXTERNAL_URL, "https://full-stack-chat-app-54sl.onrender.com"]
       : ["http://localhost:5173", "http://localhost:5175", "http://localhost:5174"],
     credentials: true,
   })
@@ -34,10 +34,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+  const frontendPath = path.join(__dirname, "../../frontend/dist");
+  console.log("Serving static from:", frontendPath);
+  app.use(express.static(frontendPath));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
 
