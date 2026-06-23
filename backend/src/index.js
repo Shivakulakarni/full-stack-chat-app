@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 import { connectDB } from "./lib/db.js";
@@ -35,6 +36,12 @@ app.use("/api/messages", messageRoutes);
 
 const frontendPath = path.join(__dirname, "../../frontend/dist");
 console.log("Frontend path:", frontendPath);
+console.log("__dirname:", __dirname);
+console.log("CWD:", process.cwd());
+
+app.get("/debug", (req, res) => {
+  res.json({ __dirname, cwd: process.cwd(), frontendPath, exists: fs.existsSync(frontendPath), files: fs.existsSync(frontendPath) ? fs.readdirSync(frontendPath) : [] });
+});
 
 app.use(express.static(frontendPath));
 
