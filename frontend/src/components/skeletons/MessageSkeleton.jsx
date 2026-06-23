@@ -1,5 +1,4 @@
 const MessageSkeleton = () => {
-  // Create an array of 6 items for skeleton messages
   const skeletonMessages = Array(6).fill(null);
 
   return (
@@ -7,20 +6,18 @@ const MessageSkeleton = () => {
       {skeletonMessages.map((_, idx) => (
         <div
           key={idx}
-          className={`chat ${idx % 2 === 0 ? "chat-start" : "chat-end"}`}
+          className={`flex ${idx % 2 === 0 ? "justify-start" : "justify-end"}`}
         >
-          <div className="chat-image avatar">
-            <div className="size-10 rounded-full">
+          <div className={`flex gap-2 ${idx % 2 === 0 ? "" : "flex-row-reverse"}`}>
+            <div className="size-8 rounded-full shrink-0">
               <div className="skeleton w-full h-full rounded-full" />
             </div>
-          </div>
-
-          <div className="chat-header mb-1">
-            <div className="skeleton h-4 w-16" />
-          </div>
-
-          <div className="chat-bubble bg-transparent p-0">
-            <div className="skeleton h-16 w-[200px]" />
+            <div>
+              <div className={`skeleton h-12 w-[200px] rounded-2xl ${
+                idx % 2 === 0 ? "rounded-bl-md" : "rounded-br-md"
+              }`} />
+              <div className="skeleton h-3 w-12 mt-1 rounded-lg" />
+            </div>
           </div>
         </div>
       ))}
